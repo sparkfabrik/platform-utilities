@@ -3,9 +3,9 @@ FROM archlinux:latest
 # Install python packages.
 ENV PIPX_HOME=/opt/pipx
 ENV PIPX_BIN_DIR=/usr/local/bin
+COPY ./src/python.pkgs /python.pkgs
 RUN pacman -Syu python python-pip python-pipx --noconfirm && \
-    pipx install yq && \
-    pipx install sslyze && \
+    for pkg in $(cat /python.pkgs); do pipx install $pkg; done && \
     pacman -Scc --noconfirm && \
     rm -rf /var/lib/pacman/sync/* && \
     rm -rf /var/cache/pacman/pkg/* && \
@@ -14,7 +14,8 @@ RUN pacman -Syu python python-pip python-pipx --noconfirm && \
     rm -rf /tmp/*
 
 # Install archlinux packages.
-RUN pacman -Syu jc jq --noconfirm && \
+COPY ./src/arch.pkgs /arch.pkgs
+RUN pacman -Syu $(cat /arch.pkgs) --noconfirm && \
     pacman -Scc --noconfirm && \
     rm -rf /var/lib/pacman/sync/* && \
     rm -rf /var/cache/pacman/pkg/* && \

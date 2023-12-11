@@ -7,6 +7,11 @@ Usage:
 - Run the Docker CLI commands to manage containers, images, networks, and volumes.
 - Use the provided tools to streamline the development and deployment processes.
 
+Adding a package:
+
+- **Archlinux** (not aur): Add the package name to the `src/arch.pkgs` file.
+- **Python**: Add the package name to the `src/python.pkgs` file.
+
 Dependencies:
 - Docker: Make sure Docker is installed and properly configured on your system.
 
